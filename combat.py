@@ -66,7 +66,7 @@ def single_attack(attacker, defender):
     :postcondition: A single attack will be properly completed.
     """
     attack_attempt = game.roll_die(1, 20)
-    if attack_attempt > defender["Dexterity"]:
+    if attack_attempt > defender["HP"[0]]:
         if 'type' in attacker:
             print(attacker['attack'])
         damage = game.roll_die(1, 6)
