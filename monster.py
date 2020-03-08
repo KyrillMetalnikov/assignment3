@@ -8,17 +8,19 @@ def get_monster():
 
 
 def get_amir():
-    return {'HP': 10, 'name': 'Amir', 'attack': 'Amir rolls your name on his magic device!'}
+    return {'HP': [10, 10], 'name': 'Amir', 'attack': 'Amir rolls your name on his magic device!', 'type': 'monster'}
 
 
 def get_chris():
-    return {'HP': 1000, 'name': 'Chris', 'attack': 'Chris says "see?  wasn\'t so hard was it?"'}
+    return {'HP': [1000, 1000], 'name': 'Chris', 'attack': 'Chris says "see?  wasn\'t so hard was it?"',
+            'type': 'monster'}
 
 
 def get_janitor():
-    return {'HP': 10, 'name': 'Jan-Itor', 'attack': 'Jan-Itor removes all paper towels from the sixth floor!'}
+    return {'HP': [10, 10], 'name': 'Jan-Itor', 'attack': 'Jan-Itor removes all paper towels from the sixth floor!',
+            'type': 'monster'}
 
 
 def get_frank():
-    return {'HP': 10, 'name': 'Frank', 'attack': 'Frank assigns an assignment that\'s 100% fun!'}
+    return {'HP': [10, 10], 'name': 'Frank', 'attack': 'Frank assigns an assignment that\'s 100% fun!', 'type': 'monster'}
 
