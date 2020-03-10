@@ -1,5 +1,6 @@
 import random
 import map_movement
+import combat
 
 
 def roll_die(number_of_rolls, number_of_sides):
@@ -53,7 +54,7 @@ def play(character):
     while user_input not in options:
         user_input = input("That is not a valid option, please pick a game option!").strip().lower()
         print(options)  # this will need to be more user friendly
-    user_commands = {"quit": quit_game(character), "fight": combat(character), "flee": flee(character),
+    user_commands = {"quit": quit_game(character), "fight": combat.combat(character), "flee": combat.flee(character),
                      "e": map_movement.movement("e", character), "w": map_movement.movement("w", character),
                      "n": map_movement.movement("n", character), "s": map_movement.movement("s", character)}
     user_commands[user_input]

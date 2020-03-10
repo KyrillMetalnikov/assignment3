@@ -1,9 +1,16 @@
-import random
+"""Run combat functions for the game"""
 import monster
 import game
 
 
 def combat(character):
+    """
+    Run an instance of combat.
+
+    :param character: A dictionary representing a character.
+    :precondition: Provide the function with a proper argument as stated in the param above.
+    :postcondition: The character will fight a monster until one of them dies.
+    """
     enemy = monster.get_monster()
     goes_first = roll_for_initiative()
     while game.is_alive(enemy) and game.is_alive(character):
@@ -11,6 +18,14 @@ def combat(character):
             combat_round(character, enemy)
         else:
             combat_round(enemy, character)
+
+
+def flee(character):
+    roll = game.roll_die(1, 10)
+    if roll > 1:
+        game.play(character)
+    else:
+        character["HP"][0] -= 2
 
 
 def roll_for_initiative():
