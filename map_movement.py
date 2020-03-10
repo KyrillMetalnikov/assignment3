@@ -1,3 +1,6 @@
+import game
+
+
 def movement(direction, character):
     """
     Update the character position depending on user input and randomly trigger encounters.
@@ -14,17 +17,17 @@ def movement(direction, character):
         character["position"][0] += horizontal_movement[direction]
     else:
         character["position"][1] += vertical_movement[direction]
-    if roll_die(1, 4) > 1:
+    if game.roll_die(1, 4) > 1:
         # need to import and implement roll_die function, import and implement heal function
-       heal(2)
+        heal(character)
     else:
         character["in_combat"] = True
-        play(character)
+        game.play(character)
         # need to import play, this function should pull user_options from the character and allow the character to
         # make selections. Combat will need to reset character in_combat key to False
-    if is_alive(character):
+    if game.is_alive(character):
         # need to import is_alive
-        play(character)
+        game.play(character)
 
 
 def heal(character):
@@ -33,7 +36,7 @@ def heal(character):
     :param character: a dictionary representing a game character.
     """
     if character["HP"][1] + 2 >= character["HP"][0]:
-        character["HP"][0] = character["HP"][1]
+        character["HP"][1] = character["HP"][0]
     else:
         character["HP"][1] += 2
 

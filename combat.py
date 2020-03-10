@@ -28,6 +28,11 @@ def flee(character):
         character["HP"][0] -= 2
 
 
+def quit_game(character):
+    character["has_quit"] = True
+    print("Game over!  You did not manage to survive school.")
+
+
 def roll_for_initiative():
     """
     Roll an initiative.
