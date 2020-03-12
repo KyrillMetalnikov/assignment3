@@ -48,18 +48,20 @@ def play(character):
     :precondition: provide the function with valid arguments according to the PARAM statement above.
     :postcondition: continue the game as directed by user input.
     """
-    while not character["has_quit"]:
-        options = map_movement.user_options(character)
+    # while not character["has_quit"]:
+    print(character)
+    options = map_movement.user_options(character)
+    print(options)  # this will need to be more user friendly
+    user_input = input("What will you do?").strip().lower()
+    while user_input not in options:
+        user_input = input("That is not a valid option, please pick a game option!").strip().lower()
         print(options)  # this will need to be more user friendly
-        user_input = input("What will you do?").strip().lower()
-        while user_input not in options:
-            user_input = input("That is not a valid option, please pick a game option!").strip().lower()
-            print(options)  # this will need to be more user friendly
-        user_commands = {"quit": combat.quit_game(character), "fight": combat.combat(character), "flee": combat.flee(character),
-                         "e": map_movement.movement("e", character), "w": map_movement.movement("w", character),
-                         "n": map_movement.movement("n", character), "s": map_movement.movement("s", character)}
-        user_commands[user_input]
-        #  this actually works, and will activate the relevant function based on the the user_input.
+    user_commands = {  # "quit": combat.quit_game(character),
+                        # "flee": combat.flee(character), "fight": combat.start_combat(character),
+                     "e": map_movement.movement("e", character), "w": map_movement.movement("w", character),
+                      "n": map_movement.movement("n", character), "s": map_movement.movement("s", character)}
+    user_commands[user_input]
+    #  this actually works, and will activate the relevant function based on the the user_input.
 
 
 def game_start():

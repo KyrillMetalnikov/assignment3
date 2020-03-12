@@ -3,7 +3,7 @@ import monster
 import game
 
 
-def combat(character):
+def start_combat(character):
     """
     Run an instance of combat.
 
@@ -18,6 +18,8 @@ def combat(character):
             combat_round(character, enemy)
         else:
             combat_round(enemy, character)
+    character["in_combat"] = False
+    game.play(character)
 
 
 def flee(character):
@@ -26,6 +28,8 @@ def flee(character):
         game.play(character)
     else:
         character["HP"][0] -= 2
+        print("You were late to a pop-quiz and got a 0! Lose 2 sanity.")
+    character["in_combat"] = False
 
 
 def quit_game(character):
