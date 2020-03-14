@@ -84,15 +84,17 @@ def single_attack(attacker, defender):
     """
     attack_attempt = game.roll_die(1, 20)
     if attack_attempt > 10:
-        if 'type' in attacker:
+        if attacker['type'] == 'monster':
             print(attacker['attack'])
+        else:
+            print(attacker['name'] + " sniffled in class!")
         damage = game.roll_die(1, 6)
         defender["HP"][1] -= damage
         if game.is_alive(defender):
-            print(defender["name"] + " took the hit like a real champ but still took " + str(damage) + " damage!\n")
+            print(defender["name"] + " has started going crazy and lost " + str(damage) + " sanity!\n")
         else:
             print(attacker["name"] + " hits " + defender["name"]
-                  + " for " + str(damage) + " damage. " + defender["name"]
-                  + " never stood a chance and now lies dead.\n")
+                  + " where it hurts and causes them to lose " + str(damage) + " sanity. " + defender["name"]
+                  + " has finally lost it and went completely insane.\n")
     else:
-        print(attacker["name"] + " misses entirely! " + defender["name"] + " says: Dude are you even trying?\n")
+        print(defender["name"] + " is living in denial! " + defender["name"] + " doesn\'t lose any sanity!\n")
