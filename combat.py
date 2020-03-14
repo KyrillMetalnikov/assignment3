@@ -18,6 +18,7 @@ def start_combat(character):
         else:
             combat_round(enemy, character)
     if game.is_alive(character):
+        print("You outlasted your instructor!")
         character["in_combat"] = False
         game.play(character)
     else:
@@ -30,7 +31,9 @@ def flee(character):
     if roll == 1:
         damage = game.roll_die(1, 4)
         character["HP"][0] -= damage
-        print("You were late to a pop-quiz and got a 0! Lose " + damage + " sanity.")
+        print("You were late to a pop-quiz and got a 0! Lose " + str(damage) + " sanity.")
+    else:
+        print("You managed to falsify a doctors note and got excused from class!")
     if game.is_alive(character):
         game.play(character)
     else:
@@ -83,15 +86,15 @@ def single_attack(attacker, defender):
     :postcondition: A single attack will be properly completed.
     """
     attack_attempt = game.roll_die(1, 20)
-    if attack_attempt > 10:
-        if "type" in attacker:
-            print(attacker['attack'])
-        else:
-            print(attacker['name'] + " sniffled in class!")
+    if "type" in attacker:
+        print(attacker['attack'])
+    else:
+        print(attacker['name'] + " sniffled in class!")
+    if attack_attempt > 8:
         damage = game.roll_die(1, 6)
         defender["HP"][1] -= damage
         if game.is_alive(defender):
-            print(defender["name"] + " is going crazy and lost " + str(damage) + " sanity!\n")
+            print(defender["name"] + " is going crazy and loses " + str(damage) + " sanity!\n")
         else:
             print(attacker["name"] + " hits " + defender["name"]
                   + " where it hurts and causes them to lose " + str(damage) + " sanity. " + defender["name"]

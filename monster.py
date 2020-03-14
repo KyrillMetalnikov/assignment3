@@ -3,9 +3,8 @@ import random
 
 
 def get_monster():
-    random_list = [get_chris(), get_amir(), get_janitor(), get_frank()]
+    random_list = [get_chris(), get_amir(), get_armaan(), get_frank()]
     monster = random.choices(random_list, weights=[1, 25, 25, 25])
-    print(monster[0])
     return monster[0]
 
 
@@ -18,8 +17,9 @@ def get_chris():
             'type': 'monster'}
 
 
-def get_janitor():
-    return {"HP": [10, 10], 'name': 'Jan-Itor', 'attack': 'Jan-Itor removes all paper towels from the sixth floor!',
+def get_armaan():
+    return {"HP": [10, 10], 'name': 'Armaan',
+            'attack': 'Armaan says: Studies show students learn best when pushed to the edge!',
             'type': 'monster'}
 
 

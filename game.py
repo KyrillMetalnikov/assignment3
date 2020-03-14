@@ -46,7 +46,6 @@ def play(character):
     :precondition: provide the function with valid arguments according to the PARAM statement above.
     :postcondition: continue the game as directed by user input.
     """
-    print(character)
     options = map_movement.user_options(character)
     print(options)  # this will need to be more user friendly
     user_input = input("What will you do?").strip().lower()
