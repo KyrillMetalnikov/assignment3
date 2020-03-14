@@ -48,30 +48,35 @@ def play(character):
     :precondition: provide the function with valid arguments according to the PARAM statement above.
     :postcondition: continue the game as directed by user input.
     """
-    # while not character["has_quit"]:
     print(character)
     options = map_movement.user_options(character)
     print(options)  # this will need to be more user friendly
     user_input = input("What will you do?").strip().lower()
     while user_input not in options:
-        user_input = input("That is not a valid option, please pick a game option!").strip().lower()
         print(options)  # this will need to be more user friendly
-    user_commands = {  # "quit": combat.quit_game(character),
-                        # "flee": combat.flee(character), "fight": combat.start_combat(character),
-                     "e": map_movement.movement("e", character), "w": map_movement.movement("w", character),
-                      "n": map_movement.movement("n", character), "s": map_movement.movement("s", character)}
-    user_commands[user_input]
-    #  this actually works, and will activate the relevant function based on the the user_input.
+        user_input = input("That is not a valid option, please pick a game option!").strip().lower()
+    user_commands = {"quit": print,
+                     "flee": combat.flee, "fight": combat.start_combat,
+                     "e": map_movement.movement, "w": map_movement.movement,
+                     "n": map_movement.movement, "s": map_movement.movement}
+    if len(user_input) == 1:
+        user_commands[user_input](user_input, character)
+    elif user_input == "quit":
+        user_commands[user_input]("Game over!  You did not manage to survive school.")
+    else:
+        user_commands[user_input](character)
 
 
 def game_start():
-    # welcome message, maybe a function?
+    """
+    Initialize a character and start the game.
+    :precondition: provide the function with no arguments.
+    :postcondition: initialize a character and start a game.
+    """
     character = {"name": input("Please enter your character name!"),
+                 "HP": [10, 10],
                  "position": [2, 2],
-                 "in_combat": False,
-                 "has_quit": False}
-    health = 6 + roll_die(1, 6)
-    character["HP"] = [health, health]
+                 "in_combat": False}
     play(character)
 
 

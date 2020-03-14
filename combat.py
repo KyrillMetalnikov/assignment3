@@ -6,41 +6,40 @@ import game
 def start_combat(character):
     """
     Run an instance of combat.
-
     :param character: A dictionary representing a character.
     :precondition: Provide the function with a proper argument as stated in the param above.
     :postcondition: The character will fight a monster until one of them dies.
     """
     enemy = monster.get_monster()
-    goes_first = roll_for_initiative()
+    player_first = roll_for_initiative()
     while game.is_alive(enemy) and game.is_alive(character):
-        if goes_first:
+        if player_first:
             combat_round(character, enemy)
         else:
             combat_round(enemy, character)
-    character["in_combat"] = False
-    game.play(character)
+    if game.is_alive(character):
+        character["in_combat"] = False
+        game.play(character)
+    else:
+        print("Game over!  You did not manage to survive school.")
 
 
 def flee(character):
+    character["in_combat"] = False
     roll = game.roll_die(1, 10)
-    if roll > 1:
+    if roll == 1:
+        damage = game.roll_die(1, 4)
+        character["HP"][0] -= damage
+        print("You were late to a pop-quiz and got a 0! Lose " + damage + " sanity.")
+    if game.is_alive(character):
         game.play(character)
     else:
-        character["HP"][0] -= 2
-        print("You were late to a pop-quiz and got a 0! Lose 2 sanity.")
-    character["in_combat"] = False
-
-
-def quit_game(character):
-    character["has_quit"] = True
-    print("Game over!  You did not manage to survive school.")
+        print("Game over!  You did not manage to survive school.")
 
 
 def roll_for_initiative():
     """
     Roll an initiative.
-
     This function uses decomposition as it uses a helper function.  It is also part of the decomposition process of a
     combat round.
     :precondition: No parameters are inputted into the function.
@@ -56,31 +55,25 @@ def roll_for_initiative():
             return False
 
 
-def combat_round(opponent_one, opponent_two):
+def combat_round(attacker, defender):
     """
     Do a round of combat between two fighters.
-
     This function uses decomposition by using a wide variety of helper functions.  It also uses pattern matching by
     demonstrating that multiple attacks are all processed in the exact same way, and so shortens the function. It also
     uses an algorithm to determine if a character is still alive (also using a helper function) in order to continue the
     function if necessary.
-    :param opponent_one: A properly formatted character dictionary.
-    :param opponent_two: A different properly formatted character dictionary.
+    :param attacker: A properly formatted character dictionary.
+    :param defender: A different properly formatted character dictionary.
     :precondition: The two parameters must be two different properly formatted characters.
     """
-    single_attack(opponent_one, opponent_two)  # opponent 1 attacks opponent 2
-    if game.is_alive(opponent_two):  # if opponent 2 survived, opponent 2 retaliates
-        single_attack(opponent_two, opponent_one)
-
-    single_attack(opponent_two, opponent_one)  # if roll_for_initiative returns false: opponent 2 attacks first
-    if game.is_alive(opponent_one):
-        single_attack(opponent_one, opponent_two)
+    single_attack(attacker, defender)  # opponent 1 attacks opponent 2
+    if game.is_alive(defender):  # if opponent 2 survived, opponent 2 retaliates
+        single_attack(defender, attacker)
 
 
 def single_attack(attacker, defender):
     """
     Complete a single attack attempt.
-
     This function uses an algorithm to determine what message to display on screen (whether the attack hit, missed or
     killed).  It also uses decomposition by using various helper functions.  It also demonstrates abstraction as it can
     be used with any two character objects.
@@ -90,16 +83,16 @@ def single_attack(attacker, defender):
     :postcondition: A single attack will be properly completed.
     """
     attack_attempt = game.roll_die(1, 20)
-    if attack_attempt > defender["HP"[0]]:
+    if attack_attempt > 10:
         if 'type' in attacker:
             print(attacker['attack'])
         damage = game.roll_die(1, 6)
         defender["HP"][1] -= damage
         if game.is_alive(defender):
-            print(defender["Name"] + " took the hit like a real champ but still took " + str(damage) + " damage!\n")
+            print(defender["name"] + " took the hit like a real champ but still took " + str(damage) + " damage!\n")
         else:
-            print(attacker["Name"] + " hits " + defender["Name"]
-                  + " for " + str(damage) + " damage. " + defender["Name"]
+            print(attacker["name"] + " hits " + defender["name"]
+                  + " for " + str(damage) + " damage. " + defender["name"]
                   + " never stood a chance and now lies dead.\n")
     else:
-        print(attacker["Name"] + " misses entirely! " + defender["Name"] + " says: Dude are you even trying?\n")
+        print(attacker["name"] + " misses entirely! " + defender["name"] + " says: Dude are you even trying?\n")

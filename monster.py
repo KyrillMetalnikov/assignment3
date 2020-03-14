@@ -5,8 +5,8 @@ import random
 def get_monster():
     random_list = [get_chris(), get_amir(), get_janitor(), get_frank()]
     monster = random.choices(random_list, weights=[1, 25, 25, 25])
-    print(monster)
-    return monster
+    print(monster[0])
+    return monster[0]
 
 
 def get_amir():
@@ -24,5 +24,5 @@ def get_janitor():
 
 
 def get_frank():
-    return {"HP": [10, 10], 'name': 'Frank', 'attack': 'Frank assigns an assignment that\'s 100% fun!', 'type': 'monster'}
-
+    return {"HP": [10, 10], 'name': 'Frank', 'attack': 'Frank assigns an assignment that\'s 100% fun!',
+            'type': 'monster'}

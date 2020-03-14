@@ -18,15 +18,10 @@ def movement(direction, character):
     else:
         character["position"][1] += vertical_movement[direction]
     if game.roll_die(1, 4) > 1:
-        # need to import and implement roll_die function, import and implement heal function
         heal(character)
+        game.play(character)
     else:
         character["in_combat"] = True
-        game.play(character)
-        # need to import play, this function should pull user_options from the character and allow the character to
-        # make selections. Combat will need to reset character in_combat key to False
-    if game.is_alive(character):
-        # need to import is_alive
         game.play(character)
 
 
@@ -34,6 +29,8 @@ def heal(character):
     """
     Heal a character for two hit points, up to the hit point maximum.
     :param character: a dictionary representing a game character.
+    :precondition: provide the function with a valid argument according to the PARAM statement above.
+    :postcondition: update the character's hit points.
     """
     if character["HP"][1] + 2 >= character["HP"][0]:
         character["HP"][1] = character["HP"][0]
@@ -57,9 +54,6 @@ def user_options(character):
     >>> user_options({"in_combat": False, "position": [2, 1]})
     ['quit', 'e', 'w', 's', 'n']
     """
-    # might be a good idea put options inside of the character so other functions have an easier time grabbing
-    # options? Simply returning list options as a list might be good enough since only one the main game function
-    # should use it
     options = ["quit"]
     if character["in_combat"]:
         options.append("fight")
