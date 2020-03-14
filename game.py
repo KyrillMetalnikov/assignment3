@@ -33,10 +33,8 @@ def is_alive(character):
     :return: a boolean value representing whether or not the character is alive.
     """
     if character["HP"][1] <= 0:
-        print(character["name"] + " has died!")
         alive = False
     else:
-        print(character["name"] + " has " + str(character["HP"][1]) + " HP left!")
         alive = True
     return alive
 
