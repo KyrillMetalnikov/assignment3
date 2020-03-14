@@ -13,3 +13,12 @@ class Test(TestCase):
         combat.flee(character)
         expected = "You were late to a pop-quiz and got a 0! Lose 2 sanity.\n"
         self.assertEqual(mock_sysout.getvalue(), expected)
+
+    @patch("game.roll_die", side_effect=[1, 2])
+    @patch("game.play", side_effect=[""])
+    def test_flee_roll_1_for_print(self, _, __):
+        character = {"HP": [5, 5]}
+        combat.flee(character)
+        actual = character
+        expected = {"HP": [3, 5], "in_combat": False}
+        self.assertEqual(actual, expected)
