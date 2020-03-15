@@ -26,6 +26,15 @@ def start_combat(character):
 
 
 def flee(character):
+    """
+    Attempt to escape from combat.
+
+    When the character attempts to escape, he will either be successful and leave the fight, or he will fail and take
+    damage.
+    :param character: A dictionary representing a character.
+    :precondition: A proper character dictionary is inputted as a param.
+    :postcondition: The character will properly attempt to escape.
+    """
     character["in_combat"] = False
     roll = game.roll_die(1, 10)
     if roll == 1:
