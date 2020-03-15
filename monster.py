@@ -1,11 +1,16 @@
-import game
 import random
 
 
 def get_monster():
-    random_list = [get_chris(), get_amir(), get_armaan(), get_frank()]
-    monster = random.choices(random_list, weights=[1, 25, 25, 25])
-    return monster[0]
+    value = random.randint(1, 31)
+    if value == 1:
+        return get_chris()
+    elif 1 < value < 11:
+        return get_amir()
+    elif 10 < value < 21:
+        return get_armaan()
+    else:
+        return get_frank()
 
 
 def get_amir():
