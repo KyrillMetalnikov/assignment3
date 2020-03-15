@@ -25,3 +25,10 @@ class Test(TestCase):
                     'attack': 'Armaan says: Studies show students learn best when pushed to the edge!',
                     'type': 'monster'}
         self.assertEqual(actual, expected)
+
+    @patch("random.randint", side_effect=[25])
+    def test_get_monster_frank(self, _):
+        actual = monster.get_monster()
+        expected = {"HP": [10, 10], 'name': 'Frank', 'attack': 'Frank assigns an assignment that\'s 100% fun!',
+                    'type': 'monster'}
+        self.assertEqual(actual, expected)
