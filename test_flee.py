@@ -16,7 +16,8 @@ class Test(TestCase):
 
     @patch("game.roll_die", side_effect=[1, 2])
     @patch("game.play", side_effect=[""])
-    def test_flee_roll_1_for_hp_change(self, _, __):
+    @patch("sys.stdout", new_callable=io.StringIO)
+    def test_flee_roll_1_for_hp_change(self, _, __, ___):
         character = {"HP": [5, 5]}
         combat.flee(character)
         actual = character
@@ -31,3 +32,16 @@ class Test(TestCase):
         combat.flee(character)
         expected = "You managed to falsify a doctors note and got excused from class!\n"
         self.assertEqual(mock_sysout.getvalue(), expected)
+
+    @patch("game.roll_die", side_effect=[1, 4])
+    @patch("sys.stdout", new_callable=io.StringIO)
+    @patch("game.play", side_effect=[""])
+    @patch("game.is_alive", side_effect=[False])
+    def test_flee_fail_and_die(self, _, __, mock_sysout, ___):
+        character = {"HP": [4, 4]}
+        combat.flee(character)
+        expected = """You were late to a pop-quiz and got a 0! Lose 4 sanity.
+Game over!  You did not manage to survive school.
+"""
+        self.assertEqual(mock_sysout.getvalue(), expected)
+
