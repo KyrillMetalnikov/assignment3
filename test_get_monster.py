@@ -15,5 +15,13 @@ class Test(TestCase):
     def test_get_monster_chris(self, _):
         actual = monster.get_monster()
         expected = {"HP": [1000, 1000], 'name': 'Chris', 'attack': 'Chris says "see?  wasn\'t so hard was it?"',
-            'type': 'monster'}
+                    'type': 'monster'}
+        self.assertEqual(actual, expected)
+
+    @patch("random.randint", side_effect=[15])
+    def test_get_monster_armaan(self, _):
+        actual = monster.get_monster()
+        expected = {"HP": [10, 10], 'name': 'Armaan',
+                    'attack': 'Armaan says: Studies show students learn best when pushed to the edge!',
+                    'type': 'monster'}
         self.assertEqual(actual, expected)
